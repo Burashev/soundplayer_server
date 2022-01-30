@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SongController;
 use App\Http\Controllers\Api\AuthorController;
+use App\Http\Controllers\Api\PlaylistController;
 
 Route::prefix('/song')->group(function () {
     Route::post('/create', [SongController::class, 'createPost']);
@@ -14,4 +15,9 @@ Route::prefix('/song')->group(function () {
 Route::prefix('/author')->group(function () {
     Route::post('/create', [AuthorController::class, 'createPost']);
     Route::get('/{author:id}', [AuthorController::class, 'showGet']);
+});
+
+Route::prefix('/playlists')->group(function() {
+    Route::get('/main', [PlaylistController::class, 'mainPlaylistsGet']);
+    Route::post('/create', [PlaylistController::class, 'createPost']);
 });
