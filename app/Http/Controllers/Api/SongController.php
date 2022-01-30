@@ -46,4 +46,9 @@ class SongController extends BaseController
 
         return response()->file($path);
     }
+
+    public function allSongsGet() {
+        $songs = Song::all();
+        return $this->sendResponse('', SongResource::collection($songs));
+    }
 }

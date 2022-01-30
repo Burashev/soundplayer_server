@@ -21,8 +21,11 @@ class SongResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'duration' => $song->duration,
+            'durationSeconds' => $song->duration,
             'author' => AuthorResource::make($this->author),
+            'source' => route('song.source', ['song' => $this->id]),
+            // TODO: make not dummy cover
+            'cover' => 'https://avatars.yandex.net/get-music-content/5314916/e4991ab5.a.19028663-1/150x150'
         ];
     }
 }
