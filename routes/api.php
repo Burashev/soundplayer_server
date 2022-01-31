@@ -20,4 +20,5 @@ Route::prefix('/author')->group(function () {
 Route::prefix('/playlists')->group(function() {
     Route::get('/main', [PlaylistController::class, 'mainPlaylistsGet']);
     Route::post('/create', [PlaylistController::class, 'createPost']);
+    Route::post('/{playlist:id}/add/song', [PlaylistController::class, 'addSongPost']);
 });
