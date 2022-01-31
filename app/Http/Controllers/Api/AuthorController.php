@@ -24,7 +24,7 @@ class AuthorController extends BaseController
            'name' => $request->input('name'),
         ]);
 
-        return $this->sendResponse('Author created', $author);
+        return $this->sendResponse('Author created', new AuthorResource($author));
     }
 
     public function showGet(Author $author)
