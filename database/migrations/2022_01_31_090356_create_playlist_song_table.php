@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateSongsTable extends Migration
+class CreatePlaylistSongTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class UpdateSongsTable extends Migration
      */
     public function up()
     {
-        Schema::table('songs', function (Blueprint $table) {
-            $table->foreignId('playlist_id')->nullable()->constrained()->onDelete('cascade');
+        Schema::create('playlist_song', function (Blueprint $table) {
+            $table->foreignId('song_id')->constrained();
+            $table->foreignId('playlist_id')->constrained();
         });
     }
 
@@ -25,6 +26,6 @@ class UpdateSongsTable extends Migration
      */
     public function down()
     {
-        Schema::dropColumns('songs', ['playlist_id']);
+        Schema::dropIfExists('playlist_song');
     }
 }
