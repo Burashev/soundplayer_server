@@ -16,12 +16,10 @@ class SongResource extends JsonResource
      */
     public function toArray($request)
     {
-        $song = new Mp3Info(public_path() . '/songs/' . $this->source);
-
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'durationSeconds' => $song->duration,
+            'durationSeconds' => $this->duration,
             'author' => AuthorResource::make($this->author),
             'source' => route('song.source', ['song' => $this->id]),
             // TODO: make not dummy cover

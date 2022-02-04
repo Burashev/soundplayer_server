@@ -8,6 +8,7 @@ use App\Models\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use wapmorgan\Mp3Info\Mp3Info;
 
 class SongController extends BaseController
 {
@@ -16,7 +17,7 @@ class SongController extends BaseController
         $validator = Validator::make($request->all(), [
             'title' => 'string|required',
             'file' => 'file|mimes:mp3,wav|required',
-            'author_id' => 'required|exists:authors,id'
+            'author_id' => 'required|exists:authors,id',
         ]);
 
         if ($validator->fails()) {
@@ -26,10 +27,13 @@ class SongController extends BaseController
         $name = Str::random() . '.' . $request->file('file')->extension();
         $request->file('file')->move(public_path() . '/songs/', $name);
 
+        $duration = (new Mp3Info(public_path() . '/songs/' . $name))->duration;
+
         $song = Song::query()->create([
             'title' => $request->input('title'),
             'author_id' => $request->input('author_id'),
             'source' => $name,
+            'duration' => $duration,
         ]);
 
         return $this->sendResponse('Song created!', new SongResource($song));
@@ -47,7 +51,8 @@ class SongController extends BaseController
         return response()->file($path);
     }
 
-    public function allSongsGet() {
+    public function allSongsGet()
+    {
         $songs = Song::all();
         return $this->sendResponse('', SongResource::collection($songs));
     }

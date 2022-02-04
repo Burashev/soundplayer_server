@@ -12,7 +12,8 @@ class Song extends Model
     protected $fillable = [
         'source',
         'title',
-        'author_id'
+        'author_id',
+        'duration'
     ];
 
     public function author() {
