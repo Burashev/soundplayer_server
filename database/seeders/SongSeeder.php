@@ -30,5 +30,35 @@ class SongSeeder extends Seeder
             'duration' => 123,
         ]);
 
+
+        Song::query()->create([
+            'title' => 'All Girls Are the Same',
+            'author_id' => 2,
+            'source' => $folder . 'All Girls Are the Same.mp3',
+            'duration' => 123,
+        ]);
+
+        Song::query()->create([
+            'title' => 'Already Dead',
+            'author_id' => 2,
+            'source' => $folder . 'Already Dead.mp3',
+            'duration' => 123,
+        ]);
+
+
+        Song::query()->create([
+            'title' => 'Magazine',
+            'author_id' => 3,
+            'source' => $folder . 'Magazine.mp3',
+            'duration' => 123,
+        ]);
+
+        Song::query()->create([
+            'title' => 'LTE',
+            'author_id' => 3,
+            'source' => $folder . 'LTE.mp3',
+            'duration' => 123,
+        ]);
+
     }
 }
