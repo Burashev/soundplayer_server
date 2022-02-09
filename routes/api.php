@@ -26,5 +26,6 @@ Route::prefix('/playlists')->group(function () {
 
 Route::prefix('/auth')->group(function () {
     Route::get('/redirect/github', [AuthController::class, 'redirectGithub']);
+    Route::get('/callback/github', [AuthController::class, 'callbackGithub']);
 });
 
