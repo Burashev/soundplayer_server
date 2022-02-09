@@ -26,5 +26,10 @@ class PlaylistSeeder extends Seeder
 
         $playlist_1->songs()->attach(1);
         $playlist_1->songs()->attach(2);
+        $playlist_1->songs()->attach(3);
+
+        $playlist_2->songs()->attach(4);
+        $playlist_2->songs()->attach(5);
+        $playlist_2->songs()->attach(6);
     }
 }
