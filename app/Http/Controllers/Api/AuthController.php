@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -38,6 +39,6 @@ class AuthController extends BaseController
         $userModel->token = $user->token;
         $userModel->save();
 
-        return $this->sendResponse('', $userModel);
+        return $this->sendResponse('', new UserResource($userModel));
     }
 }
