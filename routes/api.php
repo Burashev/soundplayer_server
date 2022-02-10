@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\SongController;
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\PlaylistController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Middleware\AuthApi;
 
 Route::prefix('/song')->group(function () {
     Route::post('/create', [SongController::class, 'createPost']);
@@ -29,3 +31,6 @@ Route::prefix('/auth')->group(function () {
     Route::get('/callback/github', [AuthController::class, 'callbackGithub']);
 });
 
+Route::middleware(AuthApi::class)->prefix('/user')->group(function () {
+    Route::get('/me', [UserController::class, 'meGet']);
+});
