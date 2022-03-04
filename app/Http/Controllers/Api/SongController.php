@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Resources\SongResource;
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use wapmorgan\Mp3Info\Mp3Info;
@@ -55,5 +56,15 @@ class SongController extends BaseController
     {
         $songs = Song::all();
         return $this->sendResponse('', SongResource::collection($songs));
+    }
+
+    public function likeSongGet(Song $song) {
+        Auth::user()->likedSongs()->attach($song->id);
+        return $this->sendResponse('Song added to favorites', SongResource::make($song));
+    }
+
+    public function unlikeSongGet(Song $song) {
+        Auth::user()->likedSongs()->detach($song->id);
+        return $this->sendResponse('Song removed from favorites', SongResource::make($song));
     }
 }

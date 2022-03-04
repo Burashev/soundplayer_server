@@ -13,6 +13,11 @@ Route::prefix('/song')->group(function () {
     Route::get('/{song:id}', [SongController::class, 'showGet']);
     Route::get('/{song:id}/source', [SongController::class, 'sourceGet'])->name('song.source');
     Route::post('/all', [SongController::class, 'allSongsGet']);
+
+    Route::middleware(AuthApi::class)->group(function () {
+        Route::get('/{song:id}/like', [SongController::class, 'likeSongGet']);
+        Route::get('/{song:id}/unlike', [SongController::class, 'unlikeSongGet']);
+    });
 });
 
 Route::prefix('/author')->group(function () {

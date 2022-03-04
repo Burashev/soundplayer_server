@@ -9,7 +9,7 @@ class UserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -19,7 +19,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'nickname' => $this->nickname,
             'token' => $this->token,
-            'updated_at' => $this->updated_at
+            'likedSongs' => SongResource::collection($this->likedSongs),
+            'updated_at' => $this->updated_at,
         ];
     }
 }
