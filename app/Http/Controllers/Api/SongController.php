@@ -60,11 +60,13 @@ class SongController extends BaseController
 
     public function likeSongGet(Song $song) {
         Auth::user()->likedSongs()->attach($song->id);
+        Auth::user()->touch();
         return $this->sendResponse('Song added to favorites', SongResource::make($song));
     }
 
     public function unlikeSongGet(Song $song) {
         Auth::user()->likedSongs()->detach($song->id);
+        Auth::user()->touch();
         return $this->sendResponse('Song removed from favorites', SongResource::make($song));
     }
 }
