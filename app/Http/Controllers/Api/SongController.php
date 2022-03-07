@@ -22,7 +22,7 @@ class SongController extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation error', $validator->errors(), 401);
+            return $this->sendError('Validation error', $validator->errors(), 400);
         }
 
         $name = Str::random() . '.' . $request->file('file')->extension();
@@ -59,12 +59,18 @@ class SongController extends BaseController
     }
 
     public function likeSongGet(Song $song) {
+        if (Auth::user()->likedSongs->contains($song->id)) {
+            return $this->sendError('Song has already been added to favorites', [], 400);
+        }
         Auth::user()->likedSongs()->attach($song->id);
         Auth::user()->touch();
         return $this->sendResponse('Song added to favorites', SongResource::make($song));
     }
 
     public function unlikeSongGet(Song $song) {
+        if (!Auth::user()->likedSongs->contains($song->id)) {
+            return $this->sendError('Song has already been unliked', [], 400);
+        }
         Auth::user()->likedSongs()->detach($song->id);
         Auth::user()->touch();
         return $this->sendResponse('Song removed from favorites', SongResource::make($song));
