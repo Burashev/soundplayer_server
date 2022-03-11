@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Playlist;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthorResource extends JsonResource
@@ -14,9 +15,15 @@ class AuthorResource extends JsonResource
      */
     public function toArray($request)
     {
+        $liked = Playlist::query()->make([
+            'id' => now()->timestamp,
+            'title' => 'Songs',
+            'songs' => $this->songs
+        ]);
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'authorSongs' => $liked
         ];
     }
 }
